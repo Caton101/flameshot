@@ -72,3 +72,14 @@ data/flatpak/.flatpak-builder
 
 #MacOS Crap
 .DS_Store
+
+# Normal CMake
+cmake_install.cmake
+CMakeFiles
+CMakeCache.txt
+CPackConfig.cmake
+CPackSourceConfig.cmake
+QtColorWidgets*
+compile_commands.json
+external/
+share/

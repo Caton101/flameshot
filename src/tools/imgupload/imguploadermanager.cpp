@@ -14,57 +14,36 @@ ImgUploaderManager::ImgUploaderManager(QObject* parent)
   : QObject(parent)
   , m_imgUploaderBase(nullptr)
 {
-    // TODO - implement ImgUploader for other Storages and selection among them
-    m_imgUploaderPlugin = IMG_UPLOADER_STORAGE_DEFAULT;
-    init();
+    // we don't do that cringe
 }
 
 void ImgUploaderManager::init()
 {
-    // TODO - implement ImgUploader for other Storages and selection among them,
-    // example:
-    // if (uploaderPlugin().compare("s3") == 0) {
-    //    m_qstrUrl = ImgS3Settings().value("S3", "S3_URL").toString();
-    //} else {
-    //    m_qstrUrl = "https://imgur.com/";
-    //    m_imgUploaderPlugin = "imgur";
-    //}
-    m_urlString = "https://imgur.com/";
-    m_imgUploaderPlugin = "imgur";
+    // we don't do that cringe
+    return;
 }
 
 ImgUploaderBase* ImgUploaderManager::uploader(const QPixmap& capture,
                                               QWidget* parent)
 {
-    // TODO - implement ImgUploader for other Storages and selection among them,
-    // example:
-    // if (uploaderPlugin().compare("s3") == 0) {
-    //    m_imgUploaderBase =
-    //      (ImgUploaderBase*)(new ImgS3Uploader(capture, parent));
-    //} else {
-    //    m_imgUploaderBase =
-    //      (ImgUploaderBase*)(new ImgurUploader(capture, parent));
-    //}
-    m_imgUploaderBase = (ImgUploaderBase*)(new ImgurUploader(capture, parent));
-    if (m_imgUploaderBase && !capture.isNull()) {
-        m_imgUploaderBase->upload();
-    }
-    return m_imgUploaderBase;
+    // we don't do that cringe
+    return NULL;
 }
 
 ImgUploaderBase* ImgUploaderManager::uploader(const QString& imgUploaderPlugin)
 {
-    m_imgUploaderPlugin = imgUploaderPlugin;
-    init();
-    return uploader(QPixmap());
+    // we don't do that cringe
+    return NULL;
 }
 
 const QString& ImgUploaderManager::uploaderPlugin()
 {
-    return m_imgUploaderPlugin;
+    // we don't do that cringe
+    return NULL;
 }
 
 const QString& ImgUploaderManager::url()
 {
-    return m_urlString;
+    // we don't do that cringe
+    return NULL;
 }
