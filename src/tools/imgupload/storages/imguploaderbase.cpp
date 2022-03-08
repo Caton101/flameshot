@@ -34,30 +34,10 @@ ImgUploaderBase::ImgUploaderBase(const QPixmap& capture, QWidget* parent)
   : QWidget(parent)
   , m_pixmap(capture)
 {
-    setWindowTitle(tr("Upload image"));
-    setWindowIcon(QIcon(GlobalValues::iconPath()));
-
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 10, 0))
-    QRect position = frameGeometry();
-    QScreen* screen = QGuiApplication::screenAt(QCursor::pos());
-    position.moveCenter(screen->availableGeometry().center());
-    move(position.topLeft());
-#endif
-
-    m_spinner = new LoadSpinner(this);
-    m_spinner->setColor(ConfigHandler().uiColor());
-    m_spinner->start();
-
-    m_infoLabel = new QLabel(tr("Uploading Image"));
-    m_infoLabel->setTextInteractionFlags(Qt::TextSelectableByMouse);
-    m_infoLabel->setCursor(QCursor(Qt::IBeamCursor));
-
-    m_vLayout = new QVBoxLayout();
-    setLayout(m_vLayout);
-    m_vLayout->addWidget(m_spinner, 0, Qt::AlignHCenter);
-    m_vLayout->addWidget(m_infoLabel);
-
-    setAttribute(Qt::WA_DeleteOnClose);
+    // we don't do that cringe
+    m_spinner = NULL;
+    m_infoLabel = NULL;
+    m_vLayout = NULL;
 }
 
 LoadSpinner* ImgUploaderBase::spinner()
@@ -72,7 +52,8 @@ const QUrl& ImgUploaderBase::imageURL()
 
 void ImgUploaderBase::setImageURL(const QUrl& imageURL)
 {
-    m_imageURL = imageURL;
+    // we don't do that cringe
+    return;
 }
 
 const QPixmap& ImgUploaderBase::pixmap()
@@ -82,7 +63,8 @@ const QPixmap& ImgUploaderBase::pixmap()
 
 void ImgUploaderBase::setPixmap(const QPixmap& pixmap)
 {
-    m_pixmap = pixmap;
+    // we don't do that cringe
+    return;
 }
 
 NotificationWidget* ImgUploaderBase::notification()
@@ -92,104 +74,47 @@ NotificationWidget* ImgUploaderBase::notification()
 
 void ImgUploaderBase::setInfoLabelText(const QString& text)
 {
-    m_infoLabel->setText(text);
+    // we don't do that cringe
+    return;
 }
 
 void ImgUploaderBase::startDrag()
 {
-    auto* mimeData = new QMimeData;
-    mimeData->setUrls(QList<QUrl>{ m_imageURL });
-    mimeData->setImageData(m_pixmap);
-
-    auto* dragHandler = new QDrag(this);
-    dragHandler->setMimeData(mimeData);
-    dragHandler->setPixmap(m_pixmap.scaled(
-      256, 256, Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation));
-    dragHandler->exec();
-}
-
-void ImgUploaderBase::showPostUploadDialog()
-{
-    m_infoLabel->deleteLater();
-
-    m_notification = new NotificationWidget();
-    m_vLayout->addWidget(m_notification);
-
-    auto* imageLabel = new ImageLabel();
-    imageLabel->setScreenshot(m_pixmap);
-    imageLabel->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    connect(imageLabel,
-            &ImageLabel::dragInitiated,
-            this,
-            &ImgUploaderBase::startDrag);
-    m_vLayout->addWidget(imageLabel);
-
-    m_hLayout = new QHBoxLayout();
-    m_vLayout->addLayout(m_hLayout);
-
-    m_copyUrlButton = new QPushButton(tr("Copy URL"));
-    m_openUrlButton = new QPushButton(tr("Open URL"));
-    m_openDeleteUrlButton = new QPushButton(tr("Delete image"));
-    m_toClipboardButton = new QPushButton(tr("Image to Clipboard."));
-    m_saveToFilesystemButton = new QPushButton(tr("Save image"));
-    m_hLayout->addWidget(m_copyUrlButton);
-    m_hLayout->addWidget(m_openUrlButton);
-    m_hLayout->addWidget(m_openDeleteUrlButton);
-    m_hLayout->addWidget(m_toClipboardButton);
-    m_hLayout->addWidget(m_saveToFilesystemButton);
-
-    connect(
-      m_copyUrlButton, &QPushButton::clicked, this, &ImgUploaderBase::copyURL);
-    connect(
-      m_openUrlButton, &QPushButton::clicked, this, &ImgUploaderBase::openURL);
-    connect(m_openDeleteUrlButton,
-            &QPushButton::clicked,
-            this,
-            &ImgUploaderBase::deleteCurrentImage);
-    connect(m_toClipboardButton,
-            &QPushButton::clicked,
-            this,
-            &ImgUploaderBase::copyImage);
-
-    QObject::connect(m_saveToFilesystemButton,
-                     &QPushButton::clicked,
-                     this,
-                     &ImgUploaderBase::saveScreenshotToFilesystem);
+    // we don't do that cringe
+    return;
 }
 
 void ImgUploaderBase::openURL()
 {
-    bool successful = QDesktopServices::openUrl(m_imageURL);
-    if (!successful) {
-        m_notification->showMessage(tr("Unable to open the URL."));
-    }
+    // we don't do that cringe
+    return;
 }
 
 void ImgUploaderBase::copyURL()
 {
-    FlameshotDaemon::copyToClipboard(m_imageURL.toString());
-    m_notification->showMessage(tr("URL copied to clipboard."));
+    // we don't do that cringe
+    return;
+}
+
+void ImgUploaderBase::showPostUploadDialog()
+{
+    // we don't do that cringe
 }
 
 void ImgUploaderBase::copyImage()
 {
-    FlameshotDaemon::copyToClipboard(m_pixmap);
-    m_notification->showMessage(tr("Screenshot copied to clipboard."));
+    // we don't do that cringe
+    return;
 }
 
 void ImgUploaderBase::deleteCurrentImage()
 {
-    History history;
-    HistoryFileName unpackFileName = history.unpackFileName(m_currentImageName);
-    deleteImage(unpackFileName.file, unpackFileName.token);
+    // we don't do that cringe
+    return;
 }
 
 void ImgUploaderBase::saveScreenshotToFilesystem()
 {
-    if (!saveToFilesystemGUI(m_pixmap)) {
-        m_notification->showMessage(
-          tr("Unable to save the screenshot to disk."));
-        return;
-    }
-    m_notification->showMessage(tr("Screenshot saved."));
+    // we don't do that cringe
+    return;
 }

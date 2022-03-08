@@ -14,7 +14,6 @@ bool ImgUploaderTool::closeOnButtonPressed() const
 
 QIcon ImgUploaderTool::icon(const QColor& background, bool inEditor) const
 {
-    Q_UNUSED(inEditor);
     return QIcon(iconPath(background) + "cloud-upload.svg");
 }
 
@@ -40,8 +39,6 @@ CaptureTool* ImgUploaderTool::copy(QObject* parent)
 
 void ImgUploaderTool::pressed(CaptureContext& context)
 {
-    emit requestAction(REQ_CLEAR_SELECTION);
-    emit requestAction(REQ_CAPTURE_DONE_OK);
-    context.request.addTask(CaptureRequest::UPLOAD);
-    emit requestAction(REQ_CLOSE_GUI);
+    // we don't do that cringe
+    return;
 }
